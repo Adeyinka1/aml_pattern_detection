@@ -1,0 +1,19 @@
+# DuckDB
+*.duckdb
+
+# Data
+data/
+*.parquet
+*.csv
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
