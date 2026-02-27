@@ -20,3 +20,9 @@ SELECT
   txn_count,
   distinct_recipients
 FROM fact_alerts;
+
+-- This view filters the alert cases to include only those with HIGH and MEDIUM risk bands for dashboard purposes.
+CREATE OR REPLACE VIEW bi_alert_cases_dashboard AS
+SELECT *
+FROM fact_alerts
+WHERE risk_band IN ('HIGH', 'MEDIUM');
