@@ -1,6 +1,6 @@
-AML Monitoring System – Data Engineering & Sampling Layer
+## AML Monitoring System – Data Engineering & Sampling Layer
 
-1. Project Context
+## 1. Project Context
 This AML monitoring system is built using the IBM “Transactions for Anti Money Laundering (AML)” dataset (~430M transactions).
 
 The system is designed to:
@@ -11,7 +11,7 @@ Power a drilldown-ready Power BI dashboard
 
 Due to dataset scale and local RAM constraints, a scalable and memory-safe architecture was implemented.
 
-2. Raw Dataset Structure
+## 2. Raw Dataset Structure
 The dataset consists of two logical entities:
 
 2.1 Transaction Files (*_Trans.parquet)
@@ -54,7 +54,7 @@ Creates a clean logical base layer
 This view was created for Column renaming to remove spaces for downstream joins.
 
 
-4. Memory-Safe Sampling Strategy
+## 4. Memory-Safe Sampling Strategy
 
 Why Sampling Was Required
 Processing 430M rows for window-based sessionisation caused out-of-memory errors.
@@ -66,18 +66,18 @@ Investigator drill-down realism
 Statistical stability
 Reduced computational load
 
-4.1 Account-Level Stratified Sampling (5%) - ref sql/03_sampled_accounts.sql
+## 4.1 Account-Level Stratified Sampling (5%) - ref sql/03_sampled_accounts.sql
 This:
 Samples ~5% of accounts per scenario
 Uses hash-based deterministic sampling
 Ensures reproducibility
 
-4.2 Sampled Transaction Fact Table - ref sql/04_clean_fact_transactions_sample.sql
+## 4.2 Sampled Transaction Fact Table - ref sql/04_clean_fact_transactions_sample.sql
 Result:
 ~20,633,261 sampled transactions
 Suitable for velocity detection
 
-5. Statistical Stability Validation
+## 5. Statistical Stability Validation
 To ensure sampling did not distort laundering patterns, laundering rate comparison was performed.
 
 Observed Sample Laundering Rates

@@ -1,7 +1,7 @@
-Banking AML Monitoring System
-Session-Based Anomaly Detection + Compliance Alert Architecture
+## Banking AML Monitoring System
+## Session-Based Anomaly Detection and Compliance Alert Architecture
 
-Overview
+## Overview
 This project implements a scalable Anti-Money Laundering (AML) monitoring system using the IBM “Transactions for Anti Money Laundering (AML)” dataset (~430M transactions).
 
 The system detects suspicious behavioural patterns using:
@@ -41,19 +41,19 @@ is_laundering
 payment_format
 payment_currency
 
-Engineering Design Decisions
-1️. Parquet Conversion
+## Engineering Design Decisions
+## 1️. Parquet Conversion
 All CSV files were converted to Parquet to:
 Improve columnar query performance
 Reduce I/O cost
 Enable efficient DuckDB scanning
 
-2️. Schema Separation
+## 2️. Schema Separation
 Transaction files and account files were separated to avoid schema mismatches during glob reads.
 *_Trans.parquet
 *_accounts.parquet
 
-3️. Memory-Safe Sampling Strategy
+## 3️. Memory-Safe Sampling Strategy
 Full 430M-row sessionisation caused out-of-memory errors.
 Instead of random row sampling, the system uses:
 Account-Level Stratified Sampling (5%)
@@ -62,7 +62,7 @@ Preserves full transaction history per sampled account
 Maintains laundering rate stability
 Reduces dataset to ~20.6M rows
 
-Rule 1 – Structuring Detection
+## Rule 1 – Structuring Detection
 Structuring detection identifies repeated near-threshold transactions
 
 Characteristics:
@@ -73,8 +73,7 @@ Achieved ~90% precision in HIGH band
 
 This rule acts as a high-confidence deterministic signal.
 
-Rule 2 – Velocity Burst Detection
-
+## Rule 2 – Velocity Burst Detection
 Why Session-Based?
 Rather than rolling windows, the system uses sessionisation:
 Transactions ordered per (scenario, from_account)
@@ -95,7 +94,7 @@ Behavioural signals require combination with deterministic rules
 
 This reflects real-world AML system design.
 
-Multi-Signal Risk Strategy
+## Multi-Signal Risk Strategygi
 To improve practical detection:
 ✔ Velocity as Risk Multiplier
 Session-level bursts are aggregated into account-level risk features.
@@ -108,10 +107,10 @@ Accounts flagged by both rules receive elevated combined risk scores.
 
 This mirrors real AML engines where behavioural signals amplify high-confidence rule outputs.
 
-Alert Layer
+## Alert Layer
+The fact_alerts table functions as a fact table in a star-schema-like structure, with scenario, rule, account, and date acting as logical dimensions. For simplicity and portfolio clarity, dimensions are kept denormalised within the fact layer.
 
 All alerts integrate into fact_alerts
-
 Fields include:
 rule_id
 scenario
@@ -123,8 +122,7 @@ structuring metrics (for rule 1)
 
 This unified design supports compliance dashboards and drill-down analysis.
 
-Looker Dashboard (Planned)
-
+## Looker Dashboard (Planned)
 The compliance interface will include:
 Summary metrics
 Risk band distribution
@@ -133,15 +131,13 @@ Account drilldown
 Transaction timeline view
 False-positive analysis
 
-Tech Stack
-
+## Tech Stack
 DuckDB (local analytical engine)
 Parquet (columnar storage)
 VS Code + Git Bash
 Looker (visualisation layer)
 
-Key Takeaways
-
+## Key Takeaways
 This project demonstrates:
 Large-scale data engineering on commodity hardware
 Deterministic sessionisation logic
@@ -150,17 +146,16 @@ Precision analysis and calibration
 Multi-rule risk modelling
 Explainable AML architecture
 
-Future Enhancements
+## Future Enhancements
 Adaptive threshold calibration
 Time-decay risk modelling
 Network graph analysis
 Feature engineering for ML models
-
 Integration with Power BI
 
-Disclaimer
+## Disclaimer
 This project is for educational and research purposes using a synthetic AML dataset.
 
-Author
+## Author
 Developed as a portfolio-grade AML monitoring architecture demonstrating scalable detection engineering and risk modelling design.
 

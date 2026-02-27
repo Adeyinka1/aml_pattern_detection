@@ -1,5 +1,6 @@
 # DuckDB
 *.duckdb
+*.wal
 
 # Data
 data/
