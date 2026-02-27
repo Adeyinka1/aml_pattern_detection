@@ -16,7 +16,7 @@ Risk band calibration
 Compliance-ready alert architecture
 
 ## System Architecture
-![AML System Architecture](data_modelling/system_architecture.png)
+![AML System Architecture](data_modelling\system_architecture.png)
 
 ## Dataset
 Source: IBM “Transactions for AML” Dataset
