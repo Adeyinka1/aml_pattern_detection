@@ -1,4 +1,4 @@
-## Banking AML Monitoring System
+# Banking AML Monitoring System
 ## Session-Based Anomaly Detection and Compliance Alert Architecture
 
 ## Overview
@@ -16,7 +16,9 @@ Risk band calibration
 Compliance-ready alert architecture
 
 ## System Architecture
+
 ![AML System Architecture](data_modelling\system_architecture.png)
+
 
 ## Dataset
 Source: IBM “Transactions for AML” Dataset
@@ -42,18 +44,18 @@ payment_format
 payment_currency
 
 ## Engineering Design Decisions
-## 1️. Parquet Conversion
+### 1️. Parquet Conversion
 All CSV files were converted to Parquet to:
 Improve columnar query performance
 Reduce I/O cost
 Enable efficient DuckDB scanning
 
-## 2️. Schema Separation
+### 2️. Schema Separation
 Transaction files and account files were separated to avoid schema mismatches during glob reads.
 *_Trans.parquet
 *_accounts.parquet
 
-## 3️. Memory-Safe Sampling Strategy
+### 3️. Memory-Safe Sampling Strategy
 Full 430M-row sessionisation caused out-of-memory errors.
 Instead of random row sampling, the system uses:
 Account-Level Stratified Sampling (5%)
@@ -74,19 +76,19 @@ Achieved ~90% precision in HIGH band
 This rule acts as a high-confidence deterministic signal.
 
 ## Rule 2 – Velocity Burst Detection
-Why Session-Based?
+### Why Session-Based?
 Rather than rolling windows, the system uses sessionisation:
 Transactions ordered per (scenario, from_account)
 New session begins after 30-minute inactivity gap
 Each session evaluated independently
 
-Velocity Criteria
+### Velocity Criteria
 A session is flagged when:
 Duration ≤ 60 minutes
 ≥ 8 transactions
 ≥ 3 distinct recipients
 
-Observed Behaviour
+### Observed Behaviour
 Velocity bursts are common in legitimate flows.
 Precision at session level was low (~0.14%), indicating:
 Velocity alone is weak as a standalone trigger
@@ -94,7 +96,7 @@ Behavioural signals require combination with deterministic rules
 
 This reflects real-world AML system design.
 
-## Multi-Signal Risk Strategygi
+## Multi-Signal Risk Strategy
 To improve practical detection:
 ✔ Velocity as Risk Multiplier
 Session-level bursts are aggregated into account-level risk features.
@@ -157,5 +159,5 @@ Integration with Power BI
 This project is for educational and research purposes using a synthetic AML dataset.
 
 ## Author
-Developed as a portfolio-grade AML monitoring architecture demonstrating scalable detection engineering and risk modelling design.
+I Adeyinka developed this project as a portfolio-grade AML monitoring architecture demonstrating scalable detection engineering and risk modelling design.
 
