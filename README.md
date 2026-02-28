@@ -17,7 +17,9 @@ Compliance-ready alert architecture
 
 ## System Architecture
 
-![AML System Architecture](data_modelling\system_architecture.png)
+<p align="center">
+  <img src="data_modelling/system_architecture.png" width="800">
+</p>
 
 
 ## Dataset
