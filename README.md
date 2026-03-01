@@ -21,7 +21,6 @@ Compliance-ready alert architecture
   <img src="data_modelling/system_architecture.png" width="800">
 </p>
 
-
 ## Dataset
 Source: IBM “Transactions for AML” Dataset
 Scale: ~430,920,901 transactions
@@ -163,3 +162,7 @@ This project is for educational and research purposes using a synthetic AML data
 ## Author
 I Adeyinka developed this project as a portfolio-grade AML monitoring architecture demonstrating scalable detection engineering and risk modelling design.
 
+## AML Compliance Dashboard
+
+![Dashboard Preview](data_modelling/dashboard_preview.png)
+🔗 [Open Looker Dashboard](https://lookerstudio.google.com/reporting/29ec8206-6703-4c01-8c04-6396496650b1/page/thbqF/edit)
