@@ -17,9 +17,7 @@ Compliance-ready alert architecture
 
 ## System Architecture
 
-<p align="center">
-  <img src="data_modelling/system_architecture.png" width="800">
-</p>
+![AML System Architecture](data_modelling/system_architecture.png)
 
 ## Dataset
 Source: IBM “Transactions for AML” Dataset
